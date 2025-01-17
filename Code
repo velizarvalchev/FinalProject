@@ -54,13 +54,13 @@ public class Main {
         JTextField text = new JTextField(14);
         text.setFont(new Font("Arial", Font.BOLD, 32));
         JButton h = new JButton("H");
-        customizeButton(h,32);
+        customizeButton(h,48);
         JButton m = new JButton("M");
-        customizeButton(m,32);
+        customizeButton(m,48);
         JButton s = new JButton("S");
-        customizeButton(s,32);
+        customizeButton(s,48);
         JButton hh = new JButton("HH");
-        customizeButton(hh, 32);
+        customizeButton(hh, 48);
         JButton start2 = new JButton("START");
         customizeButton(start2, 48);
         panel7.add(label2);
