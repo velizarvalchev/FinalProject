@@ -1,0 +1,345 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+public class Main {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.setSize(800, 600);
+        frame.setLayout(new GridLayout(3, 3));
+        frame.setVisible(true);
+
+        JPanel panel1 = new JPanel();
+        JButton sw = new JButton("STOPWATCH");
+        customizeButton(sw,48);
+        panel1.add(sw);
+        frame.add(panel1);
+
+        JPanel panel2 = new JPanel();
+        JLabel label1 = new JLabel("0:0:0:0");
+        label1.setFont(new Font("Arial", Font.BOLD, 64));
+        panel2.add(label1);
+        frame.add(panel2);
+
+        JPanel panel3 = new JPanel();
+        JButton timer = new JButton("TIMER");
+        customizeButton(timer,48);
+        panel3.add(timer);
+        frame.add(panel3);
+
+        JPanel panel4 = new JPanel();
+        JButton start = new JButton("START");
+        customizeButton(start,48);
+        panel4.add(start);
+        start.setVisible(false);
+        frame.add(panel4);
+
+        JPanel panel5 = new JPanel();
+        JButton stop = new JButton("STOP");
+        customizeButton(stop,48);
+        panel5.add(stop);
+        stop.setVisible(false);
+        frame.add(panel5);
+
+        JPanel panel6 = new JPanel();
+        JButton reset = new JButton("RESET");
+        customizeButton(reset, 48);
+        panel6.add(reset);
+        reset.setVisible(false);
+        frame.add(panel6);
+
+        JPanel panel7 = new JPanel();
+        JLabel label2 = new JLabel("Set timer:");
+        label2.setFont(new Font("Arial", Font.BOLD, 32));
+        JTextField text = new JTextField(14);
+        text.setFont(new Font("Arial", Font.BOLD, 32));
+        JButton h = new JButton("H");
+        customizeButton(h,32);
+        JButton m = new JButton("M");
+        customizeButton(m,32);
+        JButton s = new JButton("S");
+        customizeButton(s,32);
+        JButton hh = new JButton("HH");
+        customizeButton(hh, 32);
+        JButton start2 = new JButton("START");
+        customizeButton(start2, 48);
+        panel7.add(label2);
+        panel7.add(text);
+        panel7.add(h);
+        panel7.add(m);
+        panel7.add(s);
+        panel7.add(hh);
+        panel7.add(start2);
+        label2.setVisible(false);
+        text.setVisible(false);
+        h.setVisible(false);
+        m.setVisible(false);
+        s.setVisible(false);
+        hh.setVisible(false);
+        start2.setVisible(false);
+        frame.add(panel7);
+
+        JPanel panel8 = new JPanel();
+        JButton pause = new JButton("PAUSE");
+        customizeButton(pause,48);
+        panel8.add(pause);
+        JButton resume = new JButton("RESUME");
+        customizeButton(resume,48);
+        panel8.add(resume);
+        pause.setVisible(false);
+        resume.setVisible(false);
+        frame.add(panel8);
+
+        JPanel panel9 = new JPanel();
+        JButton cancel = new JButton("CANCEL");
+        customizeButton(cancel,48);
+        panel9.add(cancel);
+        cancel.setVisible(false);
+        frame.add(panel9);
+
+        stopwatch on = new stopwatch(label1);
+        timer1 timer1 = new timer1(label1);
+        sw.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                label1.setText("0:0:0:0");
+                timer1.cancel(label1);
+                start.setVisible(true);
+                stop.setVisible(true);
+                reset.setVisible(true);
+                label2.setVisible(false);
+                start2.setVisible(false);
+                text.setVisible(false);
+                h.setVisible(false);
+                m.setVisible(false);
+                s.setVisible(false);
+                hh.setVisible(false);
+                pause.setVisible(false);
+                resume.setVisible(false);
+                cancel.setVisible(false);
+                start.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        on.started();
+                    }
+                });
+                stop.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        on.stopped();
+                    }
+                });
+                reset.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        on.reset(label1);
+                    }
+                });
+            }
+        });
+        timer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                label1.setText("0:0:0:0");
+                on.reset(label1);
+                label2.setVisible(true);
+                start2.setVisible(true);
+                text.setVisible(true);
+                h.setVisible(true);
+                m.setVisible(true);
+                s.setVisible(true);
+                hh.setVisible(true);
+                pause.setVisible(true);
+                resume.setVisible(true);
+                cancel.setVisible(true);
+                start.setVisible(false);
+                stop.setVisible(false);
+                reset.setVisible(false);
+                h.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        timer1.seth(text, label1);
+                        text.setText("");
+                    }
+                });
+                m.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        timer1.setm(text,label1);
+                        text.setText("");
+                    }
+                });
+                s.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        timer1.sets(text,label1);
+                        text.setText("");
+                    }
+                });
+                hh.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        timer1.sethh(text, label1);
+                        text.setText("");
+                    }
+                });
+                start2.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+
+                        timer1.start();
+                    }
+                });
+                pause.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+
+                        timer1.pause();
+                    }
+                });
+                resume.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        timer1.resume();
+                    }
+                });
+                cancel.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        timer1.cancel(label1);
+                    }
+                });
+            }
+        });
+    }
+    public static void customizeButton(JButton button, int size){
+        button.setBackground(new Color(60, 60, 60));
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setFont(new Font("Ariel", Font.BOLD, size));
+    }
+}
+class Time{
+    int hours;
+    int minutes;
+    int seconds;
+    int hundredths;
+    public Time(int hours, int minutes, int seconds, int hundredths) {
+        this.hours = hours;
+        this.minutes = minutes;
+        this.seconds = seconds;
+        this.hundredths = hundredths;
+    }
+}
+class stopwatch{
+    Time time=new Time(0, 0, 0,0);
+    Timer timer;
+    public stopwatch(JLabel label) {
+        timer = new Timer(10, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(time.hundredths==99){
+                    time.hundredths=0;
+                    time.seconds++;
+                }
+                if (time.seconds == 60) {
+                    time.seconds = 0;
+                    time.minutes++;
+                }
+                if (time.minutes == 60) {
+                    time.minutes = 0;
+                    time.hours++;
+                }
+                time.hundredths++;
+                label.setText(time.hours + ":" + time.minutes + ":" + time.seconds+ ":" + time.hundredths);
+            }
+        });
+    }
+    void started(){
+        timer.start();
+    }
+    void stopped(){
+        timer.stop();
+    }
+    void reset(JLabel label){
+        time.seconds=0;
+        time.minutes=0;
+        time.hours=0;
+        time.hundredths=0;
+        timer.stop();
+        label.setText(time.hours + ":" + time.minutes + ":" + time.seconds+ ":" + time.hundredths);
+    }
+}
+class timer1{
+    Time time=new Time(0, 0, 0,0);
+    Timer timer;
+    public timer1(JLabel label){
+        timer = new Timer(10, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                boolean finished=false;
+                if (time.hundredths == 0) {
+                    if (time.seconds == 0) {
+                        if (time.minutes == 0) {
+                            if (time.hours == 0) {
+                                label.setText("TIMER FINISHED!!!");
+                                finished=true;
+                                timer.stop();
+                            } else {
+                                time.hours--;
+                                time.minutes = 59;
+                                time.seconds = 59;
+                            }
+                        } else {
+                            time.minutes--;
+                            time.seconds = 59;
+                        }
+                    } else {
+                        time.seconds--;
+                    }
+                    time.hundredths = 99;
+                } else {
+                    time.hundredths--;
+                }
+                if(!finished) {
+                    label.setText(time.hours + ":" + time.minutes + ":" + time.seconds + ":" + time.hundredths);
+                }
+            }
+        });
+    }
+    void seth(JTextField tf, JLabel label){
+        if(Integer.parseInt(tf.getText())<0){
+            label.setText("Invalid time!");
+        }else {
+            time.hours = Integer.parseInt(tf.getText());
+            label.setText(time.hours + ":" + time.minutes + ":" + time.seconds+ ":" + time.hundredths);
+        }
+    }
+    void setm(JTextField tf, JLabel label){
+        if(Integer.parseInt(tf.getText())<0||Integer.parseInt(tf.getText())>59){
+            label.setText("Invalid time!");
+        }else {
+            time.minutes = Integer.parseInt(tf.getText());
+            label.setText(time.hours + ":" + time.minutes + ":" + time.seconds+ ":" + time.hundredths);
+        }
+    }
+    void sets(JTextField tf, JLabel label){
+        if(Integer.parseInt(tf.getText())<0||Integer.parseInt(tf.getText())>59){
+            label.setText("Invalid time!");
+        }else {
+            time.seconds = Integer.parseInt(tf.getText());
+            label.setText(time.hours + ":" + time.minutes + ":" + time.seconds+ ":" + time.hundredths);
+        }
+    }
+    void sethh(JTextField tf, JLabel label){
+        if(Integer.parseInt(tf.getText())<0||Integer.parseInt(tf.getText())>99){
+            label.setText("Invalid time!");
+        }else {
+            time.hundredths = Integer.parseInt(tf.getText());
+            label.setText(time.hours+":"+time.minutes+":"+time.seconds+":"+time.hundredths);
+        }
+    }
+    void start(){
+        timer.start();
+    }
+    void pause(){
+        timer.stop();
+    }
+    void resume(){
+        timer.start();
+    }
+    void cancel(JLabel label){
+        timer.stop();
+        time.hundredths=0;
+        time.seconds=0;
+        time.minutes=0;
+        time.hours=0;
+        label.setText("0:0:0:0");
+    }
+
+}
